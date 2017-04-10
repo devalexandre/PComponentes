@@ -6,6 +6,10 @@
  * Time: 2:24 AM
  */
 
+require_once 'dompdf/autoload.inc.php';
+
+use Dompdf\Dompdf;
+
 class PTablePDF {
    
     private $pdf;
@@ -31,20 +35,16 @@ class PTablePDF {
     {
     
     try{
-   // define('DOMPDF_ENABLE_AUTOLOAD', true);
+  
     
-require_once("dompdf/dompdf_config.inc.php");
 
 
 $this->pdf =  new DOMPDF();
-
     $contents = file_get_contents($file);
     
-
   $this->pdf->load_html($contents);
  //$this->pdf->set_paper('letter', 'portraite');
 $this->pdf->render();
-
  file_put_contents("app/reports/{$filename}.pdf", $this->pdf->output());
    
     }catch(Exception $e){
